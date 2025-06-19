@@ -1,0 +1,71 @@
+pytest>=7.0.0
+python-nmap>=0.7.1
+artifactory>=0.1.17
+python3-dev
+python3-pip
+
+## README.md
+# DevSecOps Vulnerability Scanner Automation Tool
+
+A Python tool using nmap to automate vulnerability scanning in CI/CD pipelines, generating JSON reports for 100+ open ports and vulnerabilities, with Artifactory storage and CSV logging.
+
+## Features
+- Automates nmap vulnerability scans with scripts for detecting open ports and vulnerabilities.
+- Generates detailed JSON reports summarizing scan results.
+- Stores reports in a shared Artifactory directory for centralized access.
+- Logs scan results (host, port, service, vulnerabilities) to timestamped CSV files for auditing.
+- Includes pytest test suite with mocks for reliability.
+- Modular design with logging for debugging and CI/CD integration.
+
+## Tech Stack
+- Python 3.7+
+- python-nmap (vulnerability scanning)
+- artifactory (report storage)
+- pytest (testing)
+- CSV (result logging)
+- Logging (debugging)
+
+## Prerequisites
+- Python 3.7+
+- nmap installed (`sudo apt-get install nmap` on Ubuntu)
+- Artifactory repository access
+- Dependencies: `pip install -r requirements.txt`
+
+## Installation
+1. Clone the repo: `git clone https://github.com/14mb1v45h/devsecops-vuln-scanner.git`
+2. Install nmap: `sudo apt-get install nmap` (Ubuntu) or equivalent for your OS
+3. Install dependencies: `pip install -r requirements.txt`
+4. Set environment variables:
+   ```bash
+   export ARTIFACTORY_URL=https://myrepo.jfrog.io/artifactory
+   export ARTIFACTORY_USER=your_username
+   export ARTIFACTORY_PASSWORD=your_password
+   ```
+5. Run: `python -m devsecops_vuln_scanner.main --target 192.168.1.0/24`
+
+## Usage
+- Run with defaults: `python -m devsecops_vuln_scanner.main --target 192.168.1.0/24`
+- Customize:
+  ```bash
+  python -m devsecops_vuln_scanner.main --target 192.168.1.1 --report-dir scans --artifactory-url https://myrepo.jfrog.io/artifactory
+  ```
+- Outputs: JSON reports and CSV logs in the `scan_reports` directory, uploaded to Artifactory.
+
+## Running Tests
+1. Install pytest: `pip install pytest`
+2. Run: `pytest devsecops_vuln_scanner/tests -v`
+
+## Project Structure
+- `main.py`: Entry point with command-line arguments.
+- `scanner.py`: Core logic for scanning, reporting, and storage.
+- `utils.py`: Utility functions for Artifactory uploads.
+- `logging_config.py`: Logging setup.
+- `tests/`: Pytest test suite.
+
+
+
+## License
+MIT License
+
+## GitHub
+https://github.com/14mb1v45h/devsecops-vuln-scanner
